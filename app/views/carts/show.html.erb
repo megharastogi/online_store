@@ -1,0 +1,47 @@
+<h3>Your Cart</h3>
+<% if @products.blank? %>
+     <p id ="no_product">Your Cart is empty</p>
+<% else %>
+<table id="cart_table" cellspacing=0 cellpadding=0>
+    <tr>
+        <th>Product Name</th>
+        <th>Product Image</th>
+        <th>Product Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>    
+        <th>Action</th>
+    </tr> 
+    <% form_tag (:action => "change_cart_values") do %>   
+        <% @products.each do |p| %>
+            <tr>
+                <td><%= p[0].name %></td>
+                <td>
+                     <% if !p[0].image_type(1).blank?%>
+                        <%= image_tag("#{p[0].image_type(1).public_filename}") %>
+                        <%else%>
+                        <%= image_tag("default_product.png") %>
+                        <% end %>
+                </td>        
+                <td><%= number_to_currency(p[0].price)%> </td> 
+                <% if @error_fields %>
+                  <% @class = (@error_fields.include?("#{p[0].id}_quantity") ? 'error_fields' : '')  %>
+                <% end %>  
+                <td class ="<%=@class%>"><%=text_field_tag "#{p[0].id}_quantity" ,"#{p[1]}"%></td>
+                <td><%= number_to_currency(p[0].price*p[1]) %></td>    
+                <td><%= link_to "Remove Product" , remove_product_cart_path(p[0].id) %></td>
+            </tr>            
+        <%end%> 
+        <tr>
+            <td id="cart_total" colspan="3">Cart Total</td>
+            <th><%= number_to_currency(@cart_price) %></th>
+            <td><%=submit_tag "Update Cart"%></td>
+        </tr>    
+    <% end %>
+</table>    
+   
+<br/>
+<br/>
+<div class="action_link_cart">
+<span class="empty_cart_link"><%= link_to "Empty Cart" , empty_cart_carts_path %></span><span class="checkout_link"><%= link_to "Checkout" , checkout_path %></span>
+</div>
+<%end%>

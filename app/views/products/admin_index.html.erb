@@ -1,0 +1,53 @@
+
+<h3>List of Products</h3>
+<% if Product.all.blank? %>
+    <p>There are no products yet.<%= link_to "Click here" , new_product_path %> to create a new product</p>
+<% end %>
+<table class="admin_table" cellspacing=0 , cellpadding=0 , width= 100%>
+    <tr>
+      <th>Name</th>
+      <th>Description</th> 
+      <th>Price</th> 
+      <th>Quantity</th>
+      <th>Is Featured</th>
+      <th>Is Visible</th>
+      <th>Dimension(in)</th> 
+      <th>Weight(kg)</th>
+      <th>SKU number</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+    <% @products.each do |product|%>
+     <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.quantity %></td>
+        <td>
+            <% if product.is_featured %>
+                Yes
+            <% else %>
+                No
+            <% end %>    
+        </td>
+        <td>
+            <% if product.visible %>
+                Yes
+            <% else %>
+                No
+            <% end %>
+        </td>
+        <td><%= product.dimension %></td>
+        <td><%= product.weight %></td>
+        <td><%= product.sku %></td>
+        <td><%= product.category.name %></td>
+        <td>
+            <%= link_to "Edit" , edit_product_path(product) %>  <%#= link_to "Show" ,product %> 
+             <%= link_to 'Delete', product , :confirm => 'Are you sure?', :method => :delete %>
+             </td> 
+        
+    </tr>      
+    <% end %>
+      
+</table>    
+

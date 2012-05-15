@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Vincomm</title>
+  <%= stylesheet_link_tag 'reset' , 'style' %>
+  <%= javascript_include_tag :defaults %>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div id="users_links">
+		<%#fix move the ul out of decision block%>
+		<%#fixed%>
+        <ul>
+          <% if logged_in? %>
+              <li class="user_name_link"><a href="#">Welcome <%= current_account.name %>!</a></li>
+              <li><%= link_to "My Account" , user_path(current_account.id)%></li>
+              <li><%= link_to "Logout" , logout_path %></li>
+          <% else %>
+              <li class="user_name_link">Welcome!</li>
+              <li><%= link_to "Sign Up" , register_path %></li>
+              <li><%= link_to "Login" , login_path %></li>
+          <% end %> 
+        </ul>   
+      </div>  
+      <div id ="logo">
+        Vincomm
+      </div>
+      <div id="cart">
+        <h3><%= link_to "Your Cart" , cart_path %></h3>
+        <div class="cart_values">
+          <p>Items: <span id="cart_items"><%= @cart_items.size %></span></p><p id="cart_total">Total: $<span id="cart_total_price"><%= @cart_price %></span></p>
+          <%= link_to "Checkout" , checkout_path , :id => "cart_checkout"%>
+        </div>
+      </div>      
+    </div>  
+    <div id="content"> 
+      <div id="left_block"> 
+        <div id="navigation">
+          <ul>
+			<%#fix use controller_name and action_name instead of params%>
+			<%#fixed%>
+			<%#fix do it in a proper way by making a helper %>
+			<%#fixed%>
+            <li class="<%=active_nav('home','show')%>"><%= link_to "Home" , root_path%></li>
+            <li class="<%=active_nav('products','all')%>"><%= link_to "Products" , products_path%></li>
+            <li class="<%=active_nav('categories','all')%>"><%= link_to "Categories" , categories_path%></li>
+          </ul>  
+        </div> 
+		<%#fix add flash for warning and error messages too %>
+		<%#fixed%>
+          <% [:notice, :error].each do |flash_type| %>
+            <% if flash[flash_type] %>
+                <div id="flash" class="flash_<%=flash_type%>">
+                    <%= flash[flash_type]%>
+                  </div>    
+            <% end %>
+          <%end%>  
+         <%= yield %>
+      </div> 
+      <div id="right_block">
+        <h3>Categories</h3>
+        <ul>
+        <% @categories.each do |category|%>
+          <li><%= link_to "#{category.name}", category %></li>
+        <% end %>
+        </ul>
+      </div>  
+    </div>  
+  </div>   
+</body>
+</html>

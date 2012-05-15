@@ -1,0 +1,13 @@
+<h1>Edit Category</h1>
+
+<%= error_messages_for :category %>
+<% form_for(@category) do |c| -%>
+
+<p><%= label_tag 'Name' %><br/>
+<%= c.text_field :name %></p>
+
+<p><%= label_tag 'Description' %><br/>
+<%= c.text_area :description %></p>
+
+<p><%= c.submit 'Update' %></p>
+<% end -%>

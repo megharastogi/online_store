@@ -1,0 +1,4 @@
+page.replace_html("cart_items" , (session[:cart].cart_items.size))
+page.replace_html("cart_total_price" , (session[:cart].cart_price))
+page.replace_html("message", "<div id ='flash' class = 'flash_notice'>Product has been added to cart</div>")
+page[:flash].visual_effect :fade ,:duration => 3

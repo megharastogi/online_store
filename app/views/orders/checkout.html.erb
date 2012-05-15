@@ -1,0 +1,11 @@
+<h3>Your Order</h3>
+
+<p><% @order.created_at%></p>
+<% @products.each do |p| %>
+    <p>
+        <%= p[0].name %>
+        X
+        <%= p[1]%>
+    </p>    
+<%end%>    
+

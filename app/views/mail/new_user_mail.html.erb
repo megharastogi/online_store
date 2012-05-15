@@ -1,0 +1,11 @@
+<%#fix add proper paragraph %>
+<%#fixed%>
+<p style ="margin:10px 0 30px;">Welcome <%= @user.name%></p>
+
+<p style ="margin:5px 0;">Thank you for registration</p>
+
+<p style ="margin:5px 0;">Please Click on this link to activate your account.
+<%#fix do not hardcord links %>
+<%#fixed%>
+<%= link_to activate_user_path(@user.activation_token, :only_path => false), activate_user_path(@user.activation_token, :only_path => false) %>
+</p>

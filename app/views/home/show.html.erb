@@ -1,0 +1,52 @@
+<div id="message"></div>
+<div class="latest_product_list">
+    <span id="featured_tag">&nbsp;</span>
+    <div class="product_image">
+        <% if @lastest_featured_product.image_type(1).blank? %>
+            <%= image_tag("default_product.png") %>
+        <% else %>
+            <%= image_tag("#{@lastest_featured_product.image_type(1).public_filename}") %>
+        <% end %>    
+    </div>
+    <div class="product_content">
+        <p class="product_title">
+            <%= @lastest_featured_product.name %>
+        </p>    
+        <p class="product_desc">
+            <%= truncate(@lastest_featured_product.description,:length => 190) %>
+        </p>  
+        <p class="product_price">
+            Price: <%= number_to_currency(@lastest_featured_product.price) %>
+        </p>  
+        <p class="product_links">
+            <%= link_to "View" , @lastest_featured_product , :class => "product_view_link" %>
+            <span class="add_to_cart_link"><%=link_to_remote "Add to Cart", :url =>  add_to_cart_product_path(:id => @lastest_featured_product.id) ,:method => :post  %></span>
+        </p>    
+    </div>        
+</div>
+
+<h3>Other Featured Products</h3>
+<div id="featured_products">
+  <% unless @featured_products.blank? %>
+    <% @featured_products.each do |p|%>
+      <div class="f_product">
+        <div class="product_image">
+          <% if p.image_type(1).blank? %>
+            <%= image_tag("default_product.png") %>
+          <% else %>
+            <%= image_tag("#{p.image_type(1).public_filename}") %>
+          <% end %>
+        </div>  
+        <div class="product_title">
+          <%= truncate(p.name,:length => 18) %>
+        </div>  
+        <div class="product_price">
+          Price: <%= number_to_currency(p.price) %>
+        </div>  
+        <div class="product_links">
+          <%= link_to "View" , p , :class => "product_view_link" %>
+        </div>  
+      </div>  
+    <% end %>
+  <% end %>
+</div>  

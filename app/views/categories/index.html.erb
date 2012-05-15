@@ -1,0 +1,20 @@
+<% if Category.all.blank? %>
+    <p>There are no Categories yet</p>
+<% end %>
+<div id ="categories_block">
+    <% @categories.each do |category|%>
+        <div class="categories_list">
+            <div class="category_content">
+                <p class="category_title">
+                    <%= category.name %>
+                </p>    
+                <p class="category_desc">
+                    <%= truncate(category.description,:length => 145) %>
+                </p>  
+                <p class="category_links">
+                    <%= link_to "View" , category_path(category.id) , :class => "view_products" %>
+                </p>    
+            </div>        
+        </div>    
+    <% end %>    
+</div>

@@ -1,0 +1,39 @@
+<h3>Your Order</h3>
+
+<table id="cart_table" cellspacing=0 cellpadding=0>
+    <tr>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Product Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>    
+    </tr> 
+        <% @products.each do |p| %>
+            <tr>
+                <td><%= p[0].name %></td>
+                <td>
+                    <% if !p[0].image_type(1).blank?%>
+                        <%= image_tag("#{p[0].image_type(1).public_filename}") %>
+                        <%else%>
+                        <%= image_tag("default_product.png") %>
+                        <% end %>
+                </td>
+                <td><%= number_to_currency(p[0].price)%> </td> 
+                <td><%= p[1]%></td>
+                <td><%= number_to_currency(p[0].price*p[1]) %></td>    
+            </tr>            
+        <%end%> 
+</table>    
+<br/>
+<br/>
+<% if @order.transaction_id.blank?%>
+<%=link_to "Proceed to Payment", order_payment_order_path(@order) %>
+<% end %>
+
+
+
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr?<%=@order.set_paypal_values%>" method="post">
+ <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+

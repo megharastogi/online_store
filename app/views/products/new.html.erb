@@ -1,0 +1,57 @@
+<h3>New Product</h3>
+<div class="admin_form">
+    <%= error_messages_for :product %>
+    <% form_for(@product ,:html => { :multipart => true }) do |p|%>
+        <p>
+            <%= p.label :name %>
+            <%= p.text_field :name %>
+        </p>
+    
+        <p>
+            <%= p.label :description  %>
+            <%= p.text_area :description %>
+        </p>
+    
+        <p>
+            <%= p.label :price %>
+            <%= p.text_field :price %>
+        </p>
+        <p>
+            <%= p.label :quantity %>
+            <%= p.text_field :quantity %>
+        </p>
+        <p>
+            <%= p.label :is_featured %>
+            <%= p.check_box :is_featured %>
+        </p>
+    
+        <p>
+            <%= p.label :visible %>
+            <%= p.check_box :visible %>
+        </p>
+    
+        <p>
+            <%= p.label :dimension %>
+            <%= p.text_field :dimension %>
+        </p>
+    
+        <p>
+            <%= p.label :weight %>
+            <%= p.text_field :weight %>
+        </p>
+    
+        <p>
+            <%= p.label :sku %>
+            <%= p.text_field :sku %>
+        </p>
+    
+        <p>
+            <%= p.label :Category %>
+            <%=select("product", "category_id", Category.all.collect {|c| [ c.name.capitalize, c.id ] }.sort)%>
+        
+        </p>
+        <p>
+            <%= p.submit "Create"%>
+        </p>    
+    <% end %>    
+</div>    

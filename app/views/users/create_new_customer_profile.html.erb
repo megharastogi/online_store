@@ -1,0 +1,97 @@
+
+<div id="form_block">
+    <h3>Profile</h3>
+    <%= error_messages_for :user %>
+    <% form_for(@user ,:url => create_new_customer_profile_on_authorize_user_path(@user.id) ,:method => :put) do |f|%>
+        
+        <p>
+            Billing info
+        </p>
+        <% f.fields_for :billing_profiles , @billing_profile || BillingProfile.new do |b|%>  
+        <p>
+            <%= b.label :name_on_card  %>
+            <%= b.text_field :name_on_card %>
+        </p>
+        <p>
+            <%= b.label :credit_card_number  %>
+            <%= b.text_field :credit_card_number %>
+        </p>
+        <p>
+            <%= b.label :card_verification_value  %>
+            <%= b.text_field :card_verification_value %>
+        </p>
+        <p>
+            <%= b.label :card_type  %>
+            <%= b.select(:card_type , ["Visa","Master Card"]) %>
+        </p>
+        <p>
+            <label>Expiration date</label>
+            <%= b.select( :month ,[1,2,3,4,5,6,7,8,9,10,11,12],{:prompt => "MM"} )%>
+            <%= b.select( :year , (Time.now.year..Time.now.year+10).to_a,{:prompt => "YYYY"})%>
+        </p>    
+        <p>
+            <%= b.label :billing_first_name  %>
+            <%= b.text_field :billing_first_name %>
+        </p>       
+        <p>
+            <%= b.label :billing_last_name  %>
+            <%= b.text_field :billing_last_name %>
+        </p>
+        <p>
+            <%= b.label :billing_street_address  %>
+            <%= b.text_field :billing_street_address %>
+        </p>
+        <p>
+            <%= b.label :billing_city  %>
+            <%= b.text_field :billing_city %>
+        </p>
+        <p>
+            <%= b.label :billing_state  %>
+            <%= b.text_field :billing_state %>
+        </p>
+        <p>
+            <%= b.label :billing_country  %>
+            <%= b.text_field :billing_country %>
+        </p>
+        <p>
+            <%= b.label :billing_zip  %>
+            <%= b.text_field :billing_zip %>
+        </p>
+      <%end%>
+      <% f.fields_for :shipping_profiles , @shipping_profile || ShippingProfile.new do |b|%> 
+        <p>
+            <%= b.label :shipping_first_name  %>
+            <%= b.text_field :shipping_first_name %>
+        </p>       
+        <p>
+            <%= b.label :shipping_last_name  %>
+            <%= b.text_field :shipping_last_name %>
+        </p>
+        <p>
+            <%= b.label :shipping_street_address  %>
+            <%= b.text_field :shipping_street_address %>
+        </p>
+        <p>
+            <%= b.label :shipping_city  %>
+            <%= b.text_field :shipping_city %>
+        </p>
+        <p>
+            <%= b.label :shipping_state  %>
+            <%= b.text_field :shipping_state %>
+        </p>
+        <p>
+            <%= b.label :shipping_country  %>
+            <%= b.text_field :shipping_country %>
+        </p>
+        <p>
+            <%= b.label :shipping_zip  %>
+            <%= b.text_field :shipping_zip %>
+        </p>
+         <%end %>    
+    
+        
+       
+        
+        <%= f.submit "Submit"%>
+    <% end %>
+</div>    

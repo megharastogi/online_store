@@ -1,0 +1,103 @@
+<h3>Edit Product</h3>
+<div class="admin_form">
+        
+    <p>Main Image
+    <% if !@product.image_type(1).blank?%>
+        <%= image_tag("#{@product.image_type(1).public_filename}") %>
+    <% end %>
+   
+    <% form_tag  upload_photo_product_path({:kind => 1} ,@product), :multipart => true do %>
+    <% if @new_image && params[:kind] == "1"%>
+        <div id="image_errors"> <%=@new_image.errors.full_messages.join('<br/>') %></div>
+      <% end %>
+        <%= file_field_tag "photo[uploaded_data]", :onchange => "this.form.submit();" %>
+ 	    <%= hidden_field_tag :id, @product.id %>
+    <% end %>
+    </p>
+    
+    <p>Left Image
+    <% if !@product.image_type(2).blank?%>
+        <%= image_tag("#{@product.image_type(2).public_filename}") %>
+    <% end %>
+    <% form_tag upload_photo_product_path({:kind => 2} ,@product), :multipart => true  do %>
+    <% if @new_image && params[:kind] == "2"%>
+        <div id="image_errors"> <%=@new_image.errors.full_messages.join('<br/>') %></div>
+         <% end %>
+        <%= file_field_tag "photo[uploaded_data]", :onchange => "this.form.submit();" %>
+ 	    <%= hidden_field_tag :id, @product.id %>
+    <% end %>
+    </p>
+    
+    <p>Right Image
+    <% if !@product.image_type(3).blank?%>
+        <%= image_tag("#{@product.image_type(3).public_filename}") %>
+    <% end %>
+    
+    <% form_tag upload_photo_product_path({:kind => 3} ,@product), :multipart => true  do %>
+    <% if @new_image && params[:kind] == "3"%>
+              <div id="image_errors"> <%=@new_image.errors.full_messages.join('<br/>') %></div>
+         <% end %>
+        <%= file_field_tag "photo[uploaded_data]", :onchange => "this.form.submit();" %>
+ 	    <%= hidden_field_tag :id, @product.id %>
+    <% end %>
+    </p>
+    
+    <%= error_messages_for :product %>
+    
+    <% form_for(@product,:html => { :multipart => true }) do |p|%>
+        <p>
+            <%= p.label :name %>
+            <%= p.text_field :name %>
+        </p>
+    
+        <p>
+            <%= p.label :description  %>
+            <%= p.text_area :description %>
+        </p>
+    
+        <p>
+            <%= p.label :price %>
+            <%= p.text_field :price %>
+        </p>
+        <p>
+            <%= p.label :quantity %>
+            <%= p.text_field :quantity %>
+        </p>
+        <p>
+            <%= p.label :is_featured %>
+            <%= p.check_box :is_featured %>
+        </p>
+    
+        <p>
+            <%= p.label :visible %>
+            <%= p.check_box :visible %>
+        </p>
+    
+        <p>
+            <%= p.label :dimension %>
+            <%= p.text_field :dimension %>
+        </p>
+    
+        <p>
+            <%= p.label :weight %>
+            <%= p.text_field :weight %>
+        </p>
+    
+        <p>
+            <%= p.label :sku %>
+            <%= p.text_field :sku %>
+        </p>
+    
+        <p>
+            <%= p.label :Category %>
+            <%=select("product", "category_id", Category.all.collect {|c| [ c.name, c.id ] })%>
+        
+        </p>
+      
+        <p>
+            <%= p.submit "Update" %>
+        </p>    
+        
+        
+    <% end %>    
+</div>

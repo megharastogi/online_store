@@ -1,0 +1,136 @@
+= SMS Fu (sms_fu)
+
+Want to send an SMS from your Ruby application?  SMS Fu allows you to do just that.  
+It allows you to send a text message in the form of an e-mail to a cell phone on any
+of the many supported carriers.
+
+== Supported Carriers (US & International): 
+
+Alltel, Ameritech, AT&T, Bell Atlantic, BellSouth Mobility, Beeline(UA), BlueSkyFrog, 
+Boost Mobile, BPL Mobile, Cellular South, Claro (Brazil, Nicaragua), Comcast, Du, 
+E-Plus, Etisalat, Fido, kajeet, Mobinil, Mobitel, Movistar, Metro PCS, O2, Orange, 
+Powertel, PSC Wireless, Qwest, Rogers, Southern Link, Sprint, Suncom, 
+T-Mobile (US/UK/Germany), Telefonica, Tracfone, Virgin Mobile, Verizon Wireless, 
+Vodafone (UK, Egypt, Italy, Japan, Spain), and many more ...
+
+Some International carriers require that their users subscribe to an Email to SMS
+feature before they are able to receive SMS messages this way.  If one your users
+mentions that they are not receiving their messages, chances are it is due to this
+limitation.  Some of these carriers are include, Mobitel, Etisalat, T-Mobile (Netherlands).
+
+== Requirements
+
+* SMS Fu requires that 'action_mailer' (>= 3.0.0rc2) and 'pony' (>= 1.0) are installed.  
+
+* If you require SMS Fu on an older version of ActionMailer, make sure to use the older plugin version of SMS Fu at http://github.com/brendanlim/sms-fu/tree/plugin
+
+== Setup Instructions
+
+* Install sms_fu gem
+  
+  sudo gem install sms_fu
+  
+* Add sms_fu.yml to your config folder (Rails only)
+
+  http://github.com/brendanlim/sms-fu/blob/master/templates/sms_fu.yml
+
+* (Optional) Modify sms_fu.yml in your config folder with your reply-to e-mail address.
+
+== Numbers and Carriers
+
+* You have to send in the phone number, without any non-numeric characters.  The
+  phone numbers must be 10 digits in length.  
+* The two required parameters are the phone number and the phone carrier.
+* Here are some of the default carrier values:
+		
+    Alltel Wireless   =>  "alltel"
+    AT&T/Cingular     =>  "at&t"
+    Boost Mobile      =>  "boost"
+    Sprint Wireless   =>  "sprint"
+    T-Mobile US       =>  "t-mobile"
+    T-Mobile UK       =>  "t-mobile-uk"
+    Virgin Mobile     =>  "virgin"
+    Verizon Wireless  =>  "verizon"
+    Vodafone Tokyo    =>  "vodafone-jp-tokyo"
+
+* Check sms_fu.yml for a complete list of supported carriers, including international
+  carriers as well.
+
+== Configuration and Usage
+
+* SMS Fu relies on either ActionMailer or Pony for delivery.  You can now specify 
+  which you'd like to use for delivery.
+
+* You can use your ActionMailer settings by just specifying the :delivery option as 
+  :action_mailer.
+
+* If you would like to use Pony, you can configure it to use :sendmail or :smtp via 
+  Pony.  Set the :delivery option to :pony and then make sure to include :pony_config
+  as well 
+  
+    # ActionMailer delivery
+    sms_fu = SMSFu::Client.configure(:delivery => :action_mailer)
+
+    # Pony delivery via Sendmail
+    sms_fu = SMSFu::Client.configure(:delivery => :pony, :pony_config => { :via => :sendmail })
+
+    # Pony delivery via SMTP
+    PONY_CONFIG = { 
+      :via => :smtp, 
+      :via_options => {
+        :address              => 'smtp.gmail.com',
+        :port                 => '587',
+        :user_name            => 'username',
+        :password             => 'password',
+        :authentication       => :plain, 
+        :enable_starttls_auto => true,
+        :domain               => "localhost.localdomain"
+    }}
+    
+    sms_fu = SMSFu::Client.configure(:delivery => :pony, :pony_config => PONY_CONFIG)
+      
+* You can view more pony 'via_options' at http://github.com/benprew/pony
+      
+      
+* Basic SMS delivery
+
+    sms_fu.deliver("5558675309","at&t","message")
+
+* If you want to set a custom from e-mail per SMS message, you can do so 
+  by doing the following.
+
+    sms_fu.deliver("5558675309","at&t","message", :from => "bob@test.com")
+
+* You can set the maximum length of the SMS message, which is not set by
+  default.  Most phones can only accept 128 characters.  To do this just 
+  specify the limit option.
+
+    sms_fu.deliver("5558675309","at&t","message", :limit => 128)
+
+* You can retrieve just the formatted address to use in your own mailer.
+
+    SMSFu.sms_address("5558675309","at&t") # => "5558675309@txt.att.net"
+
+== View Helpers (Rails)
+
+* Retrieve a collection of all carriers
+
+    <%= carrier_collection %>
+
+* Display a select box with mobile carriers
+
+    <%= carrier_select %>
+    
+* Display a custom select box with mobile carriers
+
+    <%= carrier_select('user[carrier_name]', "Please choose a carrier") %>
+
+== Special Thanks
+
+I want to thank the following individuals with their help with adding some patches to SMS Fu:
+
+* Brent Collier (brentmc79)
+* Peter Boling (pboling)
+* Mike (mic)
+
+Copyright (c) 2010 Brendan G. Lim, Intridea, Inc., released under the MIT license

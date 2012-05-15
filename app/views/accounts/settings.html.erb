@@ -1,0 +1,21 @@
+<div id="form_block">
+<h3>Change Password</h3>
+<%= error_messages_for :current_account %>
+<% form_for(current_account, :url => change_password_account_path(current_account), :method => :put) do |f| %>
+    <p>
+        <%= label_tag 'old_password' %>
+        <%= password_field_tag 'old_password', params[:old_password] %>
+    </p>
+    <p>
+         <%= f.label :password %>
+         <%= f.password_field :password%>
+    </p>
+    <p>
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation %>
+    </p>
+    <p>
+        <%= f.submit "Save" %>
+    </p>    
+<% end %>
+</div>

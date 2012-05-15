@@ -1,0 +1,34 @@
+= ActiveFulfillment CHANGELOG
+
+== Version 1.0.0 (July 12, 2010)
+
+* Add inventory support to Amazon and Webgistix [Adrian Irving-Beer]
+
+== Version 0.10.0 (July 6, 2010)
+
+* Remove DHL from Webgistix shipping methods [Dennis Thiesen]
+* Update Amazon FBA to use AWS credentials [John Tajima]
+* Use new connection code from ActiveMerchant [cody]
+* Add #valid_credentials? support to all fulfillment services [cody]
+* Return 'Access Denied' message when Webgistix credenentials are invalid [cody]
+* Update Shipwire endpoint hostname [cody]
+* Add missing ISO countries [Edward Ocampo-Gooding]
+* Add support for Guernsey to country.rb [cody]
+* Use a Rails 2.3 compatible OrderedHash [cody]
+* Use :words_connector instead of connector in RequiresParameters [cody]
+* Provide Webgistix with a valid test sku to keep remote tests passing
+* Update PostsData to support get requests
+* Update Shipwire to latest version of dtd.
+* Use real addresses for Shipwire remote fulfillment tests
+* Pass Shipwire the ISO country code instead of the previous name and country combo. Always add the country element to the document
+* Update Shipwire warehouses and don't send unneeded Content-Type header
+* Add configurable timeouts from Active Merchant
+* Shipwire: Send the company in address1 if present. Otherwise send address1 in address1.
+* Always send address to Shipwire
+* Map company to address1 with Shipwire
+* Sync posts_data.rb with ActiveMerchant
+* Add support for fetching tracking numbers to Shipwire
+* Move email to the options hash. Refactor Shipwire commit method.
+* Package for initial upload to Google Code
+* Fix remote Webgistix test
+* Add support for Fulfillment by Amazon Basic Fulfillment

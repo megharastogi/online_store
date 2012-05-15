@@ -1,0 +1,32 @@
+<div id="message"></div>
+<% if Product.all.blank? %>
+    <p>There are no products yet</p>
+<% end %>
+<div id ="products_block">
+    <% @products.each do |product|%>
+        <div class="products_list">
+            <div class="product_image">
+                <% if product.image_type(1).blank? %>
+                    <%= image_tag("default_product.png") %>
+                <% else %>
+                    <%= image_tag("#{product.image_type(1).public_filename}") %>
+                <% end %>    
+            </div>
+            <div class="product_content">
+                <p class="product_title">
+                    <%= product.name %>
+                </p>    
+                <p class="product_desc">
+                    <%= truncate(product.description,:length => 145) %>
+                </p>  
+                <p class="product_price">
+                    Price: <%= number_to_currency(product.price) %>
+                </p>  
+                <p class="product_links">
+                    <%= link_to "View" , product , :class => "product_view_link" %>
+                    <span class="add_to_cart_link"><%=link_to_remote "Add to Cart", :url =>  add_to_cart_product_path(:id => product.id) ,:method => :post  %></span>
+                </p>    
+            </div>        
+        </div>    
+    <% end %>    
+</div>    

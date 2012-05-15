@@ -1,0 +1,20 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: vincomm_development
+  pool: 5
+  username: root
+  password: 
+
+test: &test 
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: vincomm_test
+  pool: 5
+  username: root
+  password: 
+
+cucumber:
+  <<: *test

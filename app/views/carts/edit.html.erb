@@ -1,0 +1,8 @@
+<h3>Your Cart</h3>
+<p><%= @cart_product[:cart_product].name %> X <%= @cart_product[:cart_product_quantity]%></p>
+<% form_tag(:action => "change_cart_values") do %>
+    <%= label_tag "quantity" %>
+    <%= text_field_tag "quantity"%>
+    <%=hidden_field_tag("product_id", value = @cart_product[:cart_product].id) %>
+    <%= submit_tag "Change Quantity"%>
+<% end %>    

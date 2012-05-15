@@ -1,0 +1,69 @@
+<h3>Payment Details</h3>
+
+
+<p>Email:<%= @user.account.email %></p>
+
+
+<h3>Billing Profiles</h3>
+    <% form_tag(:action => "money_transcation" ,:controller => :users) do %>
+        <table id="billing_profiles" cellspacing=0 cellpadding =0 width=100%>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Billing Address</th>
+            <th>Edit</th>
+        </tr>        
+        <% @user.billing_profiles.each do |bp|%>
+            <tr>
+                <td>
+                    <input type="radio" name="selected_billing_profile" value="<%=bp.id%>"/>
+                </td> 
+                <td>   
+                    <%= bp.billing_first_name %> 
+                    <%= bp.billing_last_name %> <br/>
+                    <%= bp.billing_street_address %>     <br/>
+                    <%= bp.billing_city %>    <br/>
+                    <%= bp.billing_state %>     <br/>
+                   <%= bp.billing_country %><br/>
+                   <%= bp.billing_zip %> 
+               </td>
+               <td>
+                    <%=link_to "Edit" , edit_billing_profile_user_path(bp) %>
+                </td>     
+            </tr>  
+        <%end%>
+        </table>
+        <br/>
+        <%= link_to "Add a new Billing Information" ,new_billing_profile_user_path(@user.id)%>
+    <h3>Shipping Profiles</h3>
+      <table id="billing_profiles" cellspacing=0 cellpadding =0 width=100%>
+         <tr>
+             <th>&nbsp;</th>
+             <th>Shipping Address</th>
+             <th>Edit</th>
+         </tr>
+         <% @user.shipping_profiles.each do |bp|%>
+            <tr>
+                <td>
+                    <input type="radio" name="selected_shipping_profile" value="<%=bp.id%>" />
+                </td> 
+                <td>
+                   <%= bp.shipping_first_name %> 
+                   <%= bp.shipping_last_name %> <br/>
+                   <%= bp.shipping_street_address %>     <br/>
+                   <%= bp.shipping_city %>    <br/>
+                   <%= bp.shipping_state %>     <br/>
+                  <%= bp.shipping_country %><br/>
+                  <%= bp.shipping_zip %> 
+                </td>  
+                <td>  
+                  <%=link_to "Edit" , edit_shipping_profile_user_path(bp) %>
+                </td>
+            </tr>
+           <%end%>
+       </table>   
+       <br/>
+        <%= link_to "Add a new shipping Address" ,new_shipping_profile_user_path(@user.id)%>
+        <%= hidden_field_tag 'order_id' , @order.id %>
+        <%= submit_tag "Make Payment" %>
+   <%end%>       
+ 

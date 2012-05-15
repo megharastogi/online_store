@@ -1,0 +1,18 @@
+<h3>New Category</h3>
+<div class="admin_form">
+    <%= error_messages_for :category %>
+    <% form_for (@category) do |c| -%>
+
+    <p>
+        <%= label_tag 'Name' %>
+        <%= c.text_field :name %>
+    </p>
+
+    <p>
+        <%= label_tag 'Description' %>
+        <%= c.text_area :description %>
+    </p>
+
+    <p><%= c.submit 'Create' %></p>
+    <% end -%>
+</div>

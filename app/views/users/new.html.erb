@@ -1,0 +1,26 @@
+<div id="form_block">
+    <h3>Registration</h3>
+    <%= error_messages_for :user %>
+    <% form_for(@user) do |f|%>
+        <% f.fields_for :account ,(@user.account || Account.new) do |a| %>
+            <p>
+                <%= a.label 'Email' %>
+                <%= a.text_field :email %>
+            </p>
+            <p>
+                <%= a.label 'Name' %>
+                <%= a.text_field :name %>
+            </p>
+            <p>
+                <%= a.label 'Password' %>
+                <%= a.password_field :password %>
+            </p>
+            <p>
+                <%= a.label 'Password Confirmation' %>
+                <%= a.password_field :password_confirmation %>
+            </p>
+        <% end %>
+        <%= f.submit "Register" , :id =>"user_registration"%>
+    <% end %>
+</div>    
+    

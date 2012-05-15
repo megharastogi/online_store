@@ -1,0 +1,45 @@
+<div id="message"></div>
+<div id="product_show">
+    <h5><%=@product.name%></h5>
+    <div id="product_show_images">
+        <div id="product_show_left">
+            <% if !@product.image_type(2).blank?%>
+                <%= image_tag("#{@product.image_type(2).public_filename}") %>
+            <%else%>
+                <%= image_tag("default_product.png") %>
+            <% end %>
+        </div>    
+        <div id="product_show_main">
+            <% if !@product.image_type(1).blank?%>
+                <%= image_tag("#{@product.image_type(1).public_filename}") %>
+            <%else%>
+                <%= image_tag("default_product.png") %>
+            <% end %>
+        </div>
+        <div id="product_show_right">
+            <% if !@product.image_type(3).blank?%>
+                <%= image_tag("#{@product.image_type(3).public_filename}") %>
+            <%else%>
+                <%= image_tag("default_product.png") %>
+            <% end %>
+        </div>
+    </div>
+    <div id="product_main_info">
+        <div id="product_info">
+            <ul>
+                <li><label>SKU Number</label><span><%=@product.sku%></span></li>
+                <li><label>Price</label><span>$<%=@product.price%></span></li>
+                <li><label>Quantity</label><span><%=@product.quantity%></span></li>
+                <li><label>Dimension</label><span><%=@product.dimension%></span></li>
+                <li><label>Weight</label><span><%=@product.weight%> kg</span></li>
+            
+            </ul>    
+        </div>    
+        <div id="product_add_to_cart">
+          <%=link_to_remote "Add to Cart", :url =>  add_to_cart_product_path(:id => @product.id) ,:method => :post  %>
+        </div>    
+    </div>    
+    <div id="product_show_desc">
+        <%= @product.description %>
+    </div>    
+</div>    

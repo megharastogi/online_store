@@ -1,0 +1,15 @@
+<h3>Your Profile</h3>
+
+<p>
+    <%= @account.name %>
+</p>    
+    
+<p>
+    <% @account.resource.orders.each do |o| %>
+        <%= link_to "#{o.created_at}" , order_path(o) %><br/>
+    <% end %>
+</p>        
+    
+<p>
+    <%= link_to "Change Password" , settings_account_path(@account) %>
+</p>    

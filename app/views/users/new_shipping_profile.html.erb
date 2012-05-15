@@ -1,0 +1,39 @@
+<div id="form_block">
+    <h3>Profile</h3>
+    <%= error_messages_for :user %>
+    <% form_for(@user ,:url => new_shipping_profile_user_path(@user.id) ,:method => :put) do |f|%>
+
+        <% f.fields_for :shipping_profiles , @shipping_profile do |b|%> 
+        <p>
+            <%= b.label :shipping_first_name  %>
+            <%= b.text_field :shipping_first_name %>
+        </p>       
+        <p>
+            <%= b.label :shipping_last_name  %>
+            <%= b.text_field :shipping_last_name %>
+        </p>
+        <p>
+            <%= b.label :shipping_street_address  %>
+            <%= b.text_field :shipping_street_address %>
+        </p>
+        <p>
+            <%= b.label :shipping_city  %>
+            <%= b.text_field :shipping_city %>
+        </p>
+        <p>
+            <%= b.label :shipping_state  %>
+            <%= b.text_field :shipping_state %>
+        </p>
+        <p>
+            <%= b.label :shipping_country  %>
+            <%= b.text_field :shipping_country %>
+        </p>
+        <p>
+            <%= b.label :shipping_zip  %>
+            <%= b.text_field :shipping_zip %>
+        </p>
+
+        <%end %>
+    <%= f.submit "Submit"%>
+    <% end %>
+</div> 
